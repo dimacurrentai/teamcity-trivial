@@ -1,4 +1,4 @@
-import jetbrains.buildServer.configs.kotlin.*
+import jetbrains.buildServer.configs.kotlin.v2025_11.*
 
 object SimpleBuild : BuildType({
     name = "Simple Pipeline"
@@ -19,41 +19,6 @@ object SimpleBuild : BuildType({
         script {
             name = "echo world"
             scriptContent = "echo \"world\""
-        }
-    }
-})
-
-import jetbrains.buildServer.configs.kotlin.*
-
-object SimpleBuild : BuildType({
-    name = "Simple Pipeline"
-
-    vcs {
-        root(DslContext.settingsRoot)
-    }
-
-    requirements {
-        matches("teamcity.agent.jvm.os.name", ".*(Linux|Mac).*")
-    }
-
-    steps {
-        script {
-            name = "Say Hello"
-            scriptContent = "echo \"hello\""
-        }
-        script {
-            name = "Sleep 3 Seconds"
-            scriptContent = "sleep 3"
-        }
-        script {
-            name = "Say World"
-            scriptContent = "echo \"world\""
-        }
-    }
-
-    triggers {
-        vcs {
-            branchFilter = "+:*"
         }
     }
 })

@@ -1,4 +1,4 @@
-import jetbrains.buildServer.configs.kotlin.*
+import jetbrains.buildServer.configs.kotlin.v2025_11.*
 
 object TrivialProject : Project({
     name = "TeamCity Trivial"
