@@ -11,3 +11,7 @@ How to use with TeamCity Versioned Settings
 - In TeamCity, create a project and enable Versioned Settings.
 - Choose Kotlin format and point it to this repository.
 - TeamCity will import the `.teamcity/` directory and create the build configuration automatically.
+
+Notes
+
+- If TeamCity reports a Kotlin DSL `version = "..."` mismatch during import, update `.teamcity/settings.kts` to the version string TeamCity suggests for your server.
