@@ -1,5 +1,5 @@
-import jetbrains.buildServer.configs.kotlin.v2024_03.*
-import jetbrains.buildServer.configs.kotlin.v2024_03.BuildType
+import jetbrains.buildServer.configs.kotlin.v2025_11.*
+import jetbrains.buildServer.configs.kotlin.v2025_11.BuildType
 
 object SimpleBuild : BuildType({
     name = "Simple Pipeline"

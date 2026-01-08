@@ -1,5 +1,5 @@
-import jetbrains.buildServer.configs.kotlin.v2024_03.*
+import jetbrains.buildServer.configs.kotlin.v2025_11.*
 
-version = "2024.03"
+version = "2025.11"
 
 project(TrivialProject)
