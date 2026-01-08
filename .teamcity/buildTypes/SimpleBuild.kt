@@ -1,7 +1,9 @@
-import jetbrains.buildServer.configs.kotlin.v2021_2.*
+package buildTypes
+
+import jetbrains.buildServer.configs.kotlin.v2025_11.*
 
 object SimpleBuild : BuildType({
-    name = "Simple Pipeline"
+    name = "Simple Build"
 
     vcs {
         root(DslContext.settingsRoot)
@@ -9,16 +11,16 @@ object SimpleBuild : BuildType({
 
     steps {
         script {
-            name = "echo hello"
-            scriptContent = "echo \"hello\""
+            name = "Hello"
+            scriptContent = "echo hello"
         }
         script {
-            name = "sleep 3"
+            name = "Sleep"
             scriptContent = "sleep 3"
         }
         script {
-            name = "echo world"
-            scriptContent = "echo \"world\""
+            name = "World"
+            scriptContent = "echo world"
         }
     }
 })
