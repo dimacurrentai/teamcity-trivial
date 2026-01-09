@@ -1,8 +1,7 @@
 package buildTypes
 
-import jetbrains.buildServer.configs.kotlin.v2025_11.*
-import jetbrains.buildServer.configs.kotlin.v2025_11.Project
-import jetbrains.buildServer.configs.kotlin.v2025_11.BuildType
+import jetbrains.buildServer.configs.kotlin.v2024_03.*
+import jetbrains.buildServer.configs.kotlin.v2024_03.BuildType
 
 object SimpleBuild : BuildType({
     name = "Simple Build"

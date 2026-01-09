@@ -14,4 +14,4 @@ How to use with TeamCity Versioned Settings
 
 Notes
 
-- If TeamCity reports a Kotlin DSL `version = "..."` mismatch during import, update `.teamcity/settings.kts` to the version string TeamCity suggests for your server.
+- This repo is pinned for **TeamCity 2024.03.x** (`jetbrains/teamcity-server:2024.03.3`), so `.teamcity/settings.kts` uses `version = "2024.03"` and the `v2024_03` Kotlin DSL API imports.
