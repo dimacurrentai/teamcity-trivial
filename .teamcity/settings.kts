@@ -6,6 +6,7 @@ version = "2025.11"
 
 project {
     buildType(Build)
+    buildType(Dima)
 }
 
 object Build : BuildType({
@@ -30,6 +31,32 @@ object Build : BuildType({
             name = "hw5"
             id = "hw5"
             scriptContent = "echo hw5"
+        }
+    }
+
+    features {
+        perfmon {
+        }
+    }
+})
+
+object Dima : BuildType({
+    name = "Dima"
+
+    vcs {
+        root(DslContext.settingsRoot)
+    }
+
+    steps {
+        script {
+            name = "this"
+            id = "this"
+            scriptContent = "echo this"
+        }
+        script {
+            name = "works"
+            id = "works"
+            scriptContent = "echo workd"
         }
     }
 
