@@ -24,25 +24,24 @@ object Magic : BuildType({
     val settingsDir = File(".").canonicalFile
     println("DSL settings dir (expected .teamcity): ${settingsDir.path}")
 
-    // Read during DSL "setup" (generation) time from one directory above .teamcity/
-    val fileOneDirUp = File(settingsDir.parentFile, "file.txt")
-    require(fileOneDirUp.exists()) { "Expected file one dir up from .teamcity: ${fileOneDirUp.path}" }
-    val embeddedFileTxt = shellSingleQuoteLiteral(fileOneDirUp.readText(Charsets.UTF_8))
+    // NOTE: TeamCity's DSL sandbox blocks reading files outside .teamcity/ (e.g. ../file.txt).
+    // Read during DSL "setup" (generation) time from inside .teamcity/ instead.
+    val embeddedFileTxt = shellSingleQuoteLiteral(File("file.txt").readText(Charsets.UTF_8))
 
     val magicSteps = listOf(
         Triple(
-            "echo_helloA",
-            "echo \"helloB\"",
+            "echo_hello",
+            "echo \"hello2\"",
             """
             set -eu
-            echo "helloC"
+            echo "hello2"
             echo "----- embedded file.txt (read during DSL setup) -----"
             printf '%s' $embeddedFileTxt
             printf '\n'
             echo "----------------------------------------------------"
             """.trimIndent()
         ),
-        Triple("sleep_1", "sleep 1", "sleep 1"),
+        Triple("sleep_3", "sleep 3", "sleep 3"),
         Triple("echo_world", "echo \"world\"", "echo \"world\""),
     )
 
