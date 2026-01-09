@@ -15,13 +15,14 @@ object Magic : BuildType({
     }
 
     val magicSteps = listOf(
-        Triple("echo_hello", "echo \"hello\"", "echo \"hello\""),
+        Triple("echo_hello", "echo \"hello2\"", "echo \"hello2\""),
         Triple("sleep_3", "sleep 3", "sleep 3"),
         Triple("echo_world", "echo \"world\"", "echo \"world\""),
     )
 
     steps {
         magicSteps.forEach { (stepId, stepName, stepScriptContent) ->
+            println("Building step: id=$stepId name=$stepName")
             script {
                 name = stepName
                 id = stepId
