@@ -46,7 +46,10 @@ object Magic : BuildType({
             script {
                 name = stepName
                 id = stepId
-                scriptContent = stepScriptContent
+                scriptContent = """
+                echo "Building step (runtime): id=$stepId name=$stepName"
+                $stepScriptContent
+                """.trimIndent()
             }
         }
     }
