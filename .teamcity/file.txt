@@ -1,3 +1,3 @@
-This is file.txt
-You can change these lines and the build step will print them.
+This is file.txt (embedded during DSL setup)
+Hello2 from file.txt
 

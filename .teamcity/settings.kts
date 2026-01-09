@@ -15,36 +15,24 @@ object Magic : BuildType({
         root(DslContext.settingsRoot)
     }
 
-    fun embedFileAsHereDoc(path: String, labelBase: String = "FILE_EOF"): String {
-        val text = File(path).readText(Charsets.UTF_8).trimEnd()
-        val lines = text.lineSequence().toSet()
-
-        var label = labelBase
-        var i = 1
-        while (lines.contains(label)) {
-            label = "${labelBase}_$i"
-            i += 1
-        }
-
-        return buildString {
-            appendLine("cat <<'$label'")
-            if (text.isNotEmpty()) appendLine(text)
-            appendLine(label)
-        }
+    fun shellSingleQuoteLiteral(text: String): String {
+        // POSIX-safe single-quote escape: '  ->  '"'"'
+        return "'" + text.replace("'", "'\"'\"'") + "'"
     }
 
-    // Read during DSL "setup" (generation) time and embed into the step body
-    val embeddedFileTxt = embedFileAsHereDoc("file.txt", labelBase = "FILE_TXT_EOF")
+    // Read during DSL "setup" (generation) time and embed into the step body as inert data
+    val embeddedFileTxt = shellSingleQuoteLiteral(File("file.txt").readText(Charsets.UTF_8))
 
     val magicSteps = listOf(
         Triple(
             "echo_hello",
             "echo \"hello2\"",
             """
-            set -euo pipefail
+            set -eu
             echo "hello2"
             echo "----- embedded file.txt (read during DSL setup) -----"
-            $embeddedFileTxt
+            printf '%s' $embeddedFileTxt
+            printf '\n'
             echo "----------------------------------------------------"
             """.trimIndent()
         ),
