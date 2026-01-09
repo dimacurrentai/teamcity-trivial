@@ -1,6 +1,6 @@
 ## TeamCity Trivial Template
 
-This repository is a minimal TeamCity Kotlin DSL project that auto-populates a single build with three steps:
+This repository is a minimal TeamCity Kotlin DSL project that auto-populates a single build with three steps (generated from a list in `.teamcity/settings.kts`):
 
 1. echo "hello"
 2. sleep 3
@@ -14,4 +14,4 @@ How to use with TeamCity Versioned Settings
 
 Notes
 
-- This repo is pinned for **TeamCity 2024.03.x** (`jetbrains/teamcity-server:2024.03.3`), so `.teamcity/settings.kts` uses `version = "2024.03"` and the `v2024_03` Kotlin DSL API imports.
+- This repo currently uses `version = "2025.11"` in `.teamcity/settings.kts`.
