@@ -5,12 +5,11 @@ import jetbrains.buildServer.configs.kotlin.buildSteps.script
 version = "2025.11"
 
 project {
-    buildType(Build)
-    buildType(Dima)
+    buildType(Magic)
 }
 
-object Build : BuildType({
-    name = "Build"
+object Magic : BuildType({
+    name = "Magic"
 
     vcs {
         root(DslContext.settingsRoot)
@@ -18,50 +17,14 @@ object Build : BuildType({
 
     steps {
         script {
-            name = "hw3"
-            id = "hw3"
-            scriptContent = "echo hw4"
-        }
-        script {
-            name = "hw4"
-            id = "hw4"
-            scriptContent = "echo hw4"
-        }
-        script {
-            name = "hw5"
-            id = "hw5"
-            scriptContent = "echo hw5"
-        }
-    }
-
-    features {
-        perfmon {
-        }
-    }
-})
-
-object Dima : BuildType({
-    name = "Dima"
-
-    vcs {
-        root(DslContext.settingsRoot)
-    }
-
-    steps {
-        script {
-            name = "this"
-            id = "this"
-            scriptContent = "echo this"
+            name = "magic"
+            id = "magic"
+            scriptContent = "echo magic"
         }
         script {
             name = "works"
             id = "works"
             scriptContent = "echo workd"
-        }
-    }
-
-    features {
-        perfmon {
         }
     }
 })
