@@ -3,30 +3,6 @@ import jetbrains.buildServer.configs.kotlin.buildSteps.script
 
 version = "2025.11"
 
-private data class ScriptStepDef(
-    val id: String,
-    val name: String,
-    val scriptContent: String,
-)
-
-private val MAGIC_STEPS: List<ScriptStepDef> = listOf(
-    ScriptStepDef(
-        id = "echo_hello",
-        name = "echo \"hello\"",
-        scriptContent = "echo \"hello\"",
-    ),
-    ScriptStepDef(
-        id = "sleep_3",
-        name = "sleep 3",
-        scriptContent = "sleep 3",
-    ),
-    ScriptStepDef(
-        id = "echo_world",
-        name = "echo \"world\"",
-        scriptContent = "echo \"world\"",
-    ),
-)
-
 project {
     buildType(Magic)
 }
@@ -38,12 +14,18 @@ object Magic : BuildType({
         root(DslContext.settingsRoot)
     }
 
+    val magicSteps = listOf(
+        Triple("echo_hello", "echo \"hello\"", "echo \"hello\""),
+        Triple("sleep_3", "sleep 3", "sleep 3"),
+        Triple("echo_world", "echo \"world\"", "echo \"world\""),
+    )
+
     steps {
-        MAGIC_STEPS.forEach { step ->
+        magicSteps.forEach { (stepId, stepName, stepScriptContent) ->
             script {
-                name = step.name
-                id = step.id
-                scriptContent = step.scriptContent
+                name = stepName
+                id = stepId
+                scriptContent = stepScriptContent
             }
         }
     }
