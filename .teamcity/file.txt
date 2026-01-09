@@ -1,3 +1,0 @@
-This is file.txt (embedded during DSL setup)
-Hello2 from file.txt
-

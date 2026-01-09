@@ -20,8 +20,14 @@ object Magic : BuildType({
         return "'" + text.replace("'", "'\"'\"'") + "'"
     }
 
-    // Read during DSL "setup" (generation) time and embed into the step body as inert data
-    val embeddedFileTxt = shellSingleQuoteLiteral(File("file.txt").readText(Charsets.UTF_8))
+    // Confirm Kotlin DSL is being evaluated from the .teamcity/ directory
+    val settingsDir = File(".").canonicalFile
+    println("DSL settings dir (expected .teamcity): ${settingsDir.path}")
+
+    // Read during DSL "setup" (generation) time from one directory above .teamcity/
+    val fileOneDirUp = File(settingsDir.parentFile, "file.txt")
+    require(fileOneDirUp.exists()) { "Expected file one dir up from .teamcity: ${fileOneDirUp.path}" }
+    val embeddedFileTxt = shellSingleQuoteLiteral(fileOneDirUp.readText(Charsets.UTF_8))
 
     val magicSteps = listOf(
         Triple(

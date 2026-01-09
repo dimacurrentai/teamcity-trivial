@@ -1,0 +1,3 @@
+This is repo-root file.txt
+It should be read from one directory above .teamcity/ during DSL generation.
+
