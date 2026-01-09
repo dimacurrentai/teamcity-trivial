@@ -25,18 +25,18 @@ object Magic : BuildType({
 
     val magicSteps = listOf(
         Triple(
-            "echo_hello",
-            "echo \"hello2\"",
+            "echo_helloA",
+            "echo \"helloB\"",
             """
             set -eu
-            echo "hello2"
+            echo "helloC"
             echo "----- embedded file.txt (read during DSL setup) -----"
             printf '%s' $embeddedFileTxt
             printf '\n'
             echo "----------------------------------------------------"
             """.trimIndent()
         ),
-        Triple("sleep_3", "sleep 3", "sleep 3"),
+        Triple("sleep_1", "sleep 1", "sleep 1"),
         Triple("echo_world", "echo \"world\"", "echo \"world\""),
     )
 
