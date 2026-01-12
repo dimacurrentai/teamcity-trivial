@@ -118,8 +118,8 @@ val ParametrizedMagic = object : BuildType({
     }
 
     params {
-        param("env.A", "1")
-        param("env.B", "2")
+        text("env.A", "", allowEmpty = false)
+        text("env.B", "", allowEmpty = false)
     }
 
     steps {
