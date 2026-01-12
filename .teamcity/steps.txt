@@ -2,3 +2,4 @@ steps/step1_echo_hello.sh
 steps/step2_sleep_1.sh
 steps/step3_echo_world.sh
 steps/step4_done.sh
+steps/step5_print_params_and_sum.sh
