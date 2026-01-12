@@ -20,40 +20,42 @@ object Magic : BuildType({
         return "'" + text.replace("'", "'\"'\"'") + "'"
     }
 
-    // Confirm Kotlin DSL is being evaluated from the .teamcity/ directory
+    fun makeStepId(stepIndex: Int, stepPath: String): String {
+        val slug = stepPath
+            .trim()
+            .replace(Regex("""[^A-Za-z0-9]+"""), "_")
+            .trim('_')
+            .ifBlank { "step" }
+            .take(60)
+
+        val indexPrefix = (stepIndex + 1).toString().padStart(2, '0')
+        return "step_${indexPrefix}_$slug"
+    }
+
+    // TeamCity evaluates DSL from the .teamcity/ directory, so this reads .teamcity/steps.txt
     val settingsDir = File(".").canonicalFile
-    println("DSL settings dir (expected .teamcity): ${settingsDir.path}")
+    val stepsTxt = File(settingsDir, "steps.txt")
+    println("DSL settings dir: ${settingsDir.path}")
+    println("Loading steps from: ${stepsTxt.path}")
 
-    // NOTE: TeamCity's DSL sandbox blocks reading files outside .teamcity/ (e.g. ../file.txt).
-    // Read during DSL "setup" (generation) time from inside .teamcity/ instead.
-    val embeddedFileTxt = shellSingleQuoteLiteral(File("file.txt").readText(Charsets.UTF_8))
-
-    val magicSteps = listOf(
-        Triple(
-            "echo_hello",
-            "echo \"hello2\"",
-            """
-            set -eu
-            echo "hello2"
-            echo "----- embedded file.txt (read during DSL setup) -----"
-            printf '%s' $embeddedFileTxt
-            printf '\n'
-            echo "----------------------------------------------------"
-            """.trimIndent()
-        ),
-        Triple("sleep_3", "sleep 3", "sleep 3"),
-        Triple("echo_world", "echo \"world\"", "echo \"world\""),
-    )
+    val stepPaths = stepsTxt
+        .readLines(Charsets.UTF_8)
+        .map { it.trim() }
+        .filter { it.isNotEmpty() }
+        .filterNot { it.startsWith("#") }
 
     steps {
-        magicSteps.forEach { (stepId, stepName, stepScriptContent) ->
-            println("Building step: id=$stepId name=$stepName")
+        stepPaths.forEachIndexed { stepIndex, stepPath ->
+            val stepId = makeStepId(stepIndex, stepPath)
+            val quotedStepPath = shellSingleQuoteLiteral(stepPath)
+            println("Building step: id=$stepId name=$stepPath")
             script {
-                name = stepName
                 id = stepId
+                name = stepPath
                 scriptContent = """
-                echo "Building step (runtime): id=$stepId name=$stepName"
-                $stepScriptContent
+                set -eu
+                echo "Running step: id=$stepId path=$stepPath"
+                sh $quotedStepPath
                 """.trimIndent()
             }
         }
