@@ -5,6 +5,7 @@ import java.io.File
 version = "2025.11"
 
 val Magic = object : BuildType({
+    id("Magic")
     name = "Magic"
 
     fun shellSingleQuoteLiteral(text: String): String {
@@ -63,6 +64,7 @@ val Magic = object : BuildType({
 }) {}
 
 val ParametrizedMagic = object : BuildType({
+    id("ParametrizedMagic")
     name = "ParametrizedMagic"
 
     fun shellSingleQuoteLiteral(text: String): String {
