@@ -15,3 +15,12 @@ How to use with TeamCity Versioned Settings
 Notes
 
 - This repo currently uses `version = "2025.11"` in `.teamcity/settings.kts`.
+
+### ParametrizedMagic (required parameters)
+
+The `ParametrizedMagic` build configuration requires two TeamCity parameters:
+
+- `env.A` (exposed to build steps as environment variable `A`)
+- `env.B` (exposed to build steps as environment variable `B`)
+
+When you trigger `ParametrizedMagic` manually, TeamCity will prompt you to enter values for **A** and **B**.

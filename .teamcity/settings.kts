@@ -119,8 +119,19 @@ val ParametrizedMagic = object : BuildType({
 
     params {
         // Exposed as environment variables in the agent, so scripts can use $A and $B.
-        param("env.A", "1")
-        param("env.B", "2")
+        // These are intentionally required: TeamCity will prompt for them when starting a build manually.
+        param("env.A", "") {
+            display = ParameterDisplay.PROMPT
+            allowEmpty = false
+            label = "A"
+            description = "Required. Exposed to build steps as environment variable A."
+        }
+        param("env.B", "") {
+            display = ParameterDisplay.PROMPT
+            allowEmpty = false
+            label = "B"
+            description = "Required. Exposed to build steps as environment variable B."
+        }
     }
 
     steps {
