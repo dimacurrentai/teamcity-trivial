@@ -1,3 +1,0 @@
-This is .teamcity/file.txt
-TeamCity DSL sandbox allows reading files from inside .teamcity/ during settings generation.
-
