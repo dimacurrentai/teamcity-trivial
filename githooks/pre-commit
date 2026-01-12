@@ -2,4 +2,4 @@
 set -euo pipefail
 
 ROOT_DIR="$(git rev-parse --show-toplevel)"
-(cd "$ROOT_DIR"; ./scripts/list_steps.sh >.teamcity/steps.txt; git add .teamcity/steps.txt)
+(cd "$ROOT_DIR"; ./scripts/list_steps.sh >teamcity/steps.txt; git add teamcity/steps.txt)
