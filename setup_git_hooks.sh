@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -euo pipefail
-(cd "$(git rev-parse --show-toplevel)"; git config core.hooksPath .githooks)
-echo 'Git hooks installed via `core.hooksPath=.githooks`'
+(cd "$(git rev-parse --show-toplevel)"; git config core.hooksPath githooks)
+echo 'Git hooks installed via `core.hooksPath=githooks`'
